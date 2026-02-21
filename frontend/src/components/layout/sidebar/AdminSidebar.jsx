@@ -1,0 +1,134 @@
+import React from "react";
+import { useNavigate } from "react-router";
+import {
+  LayoutDashboard,
+  Leaf,
+  ListTree,
+  ShoppingCart,
+  Users,
+  Settings,
+  LogOut,
+  FileChartColumn,
+  Archive,
+  Heart,
+} from "lucide-react";
+import { useAuthStore } from "../../../store/useAuthStore";
+
+function AdminSidebar() {
+  const navigate = useNavigate();
+  const { logout } = useAuthStore();
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
+
+  return (
+    <div className="drawer-side is-drawer-close:overflow-visible">
+      <label
+        htmlFor="admin-drawer"
+        aria-label="close sidebar"
+        className="drawer-overlay"
+      ></label>
+
+      <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-16 is-drawer-open:w-64 transition-all">
+        <ul className="menu w-full grow p-2 gap-1">
+          {/* Dashboard */}
+          <li>
+            <button
+              onClick={() => navigate("/admin")}
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Dashboard"
+            >
+              <LayoutDashboard className="size-5" />
+              <span className="is-drawer-close:hidden">Dashboard</span>
+            </button>
+          </li>
+
+          {/* Plants */}
+          <li>
+            <button
+              onClick={() => navigate("/admin/plants")}
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Plants"
+            >
+              <Leaf className="size-5" />
+              <span className="is-drawer-close:hidden">Plants</span>
+            </button>
+          </li>
+
+          {/* Categories */}
+          <li>
+            <button
+              onClick={() => navigate("/admin/categories")}
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Categories"
+            >
+              <ListTree className="size-5" />
+              <span className="is-drawer-close:hidden">Categories</span>
+            </button>
+          </li>
+
+          {/* Orders */}
+          <li>
+            <button
+              onClick={() => navigate("/admin/orders")}
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Orders"
+            >
+              <ShoppingCart className="size-5" />
+              <span className="is-drawer-close:hidden">Orders</span>
+            </button>
+          </li>
+
+          {/* Payments  */}
+          <li>
+            <button
+              onClick={() => navigate("/admin/payments")}
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Payments"
+            >
+              <FileChartColumn className="size-5" />
+              <span className="is-drawer-close:hidden">Payments</span>
+            </button>
+          </li>
+
+          {/* Customers */}
+          <li>
+            <button
+              onClick={() => navigate("/admin/stock")}
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Plant Stock"
+            >
+              <Archive className="size-5" />
+              <span className="is-drawer-close:hidden">Plant Stock</span>
+            </button>
+          </li>
+
+          <li>
+            <button
+              onClick={() => navigate("/admin/plantCare")}
+              className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Plant Care"
+            >
+              <Heart className="size-5" />
+              <span className="is-drawer-close:hidden">Plant Care</span>
+            </button>
+          </li>
+
+          <li className="mt-2">
+            <button
+              onClick={handleLogout}
+              className="text-error is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Logout"
+            >
+              <LogOut className="size-5" />
+              <span className="is-drawer-close:hidden">Logout</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+export default AdminSidebar;
